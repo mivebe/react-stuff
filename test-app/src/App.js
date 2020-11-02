@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+//import MouseEvents from "./components/MouseEvents";
+//import CursorEffect from "./components/CursorEffect";
+//import ComplexState from "./components/ComplexState";
+import ComplexState2 from "./components/ComplexState2"
+import CSP from "./components/CSP"
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CSP />
+      <ComplexState2 />
     </div>
-  );
+  )
+
 }
 
 export default App;
