@@ -9,8 +9,8 @@ function ComplexState2() {
         <div className="container">
             <h1>Hello {fullName.fName} {fullName.lName} </h1>
             <form>
-                <input name="fName" placeholder="First Name" onChange={e => setFullName({ ...fullName, fName: e.target.value })} />
-                <input name="lName" placeholder="Last Name" onChange={e => setFullName({ ...fullName, lName: e.target.value })} />
+                <input name="fName" placeholder="First Name" onChange={e => setFullName({ fName: e.target.value })} />
+                <input name="lName" placeholder="Last Name" onChange={e => setFullName({ lName: e.target.value })} />
                 <button>Submit</button>
             </form>
         </div>
