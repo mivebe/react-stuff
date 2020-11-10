@@ -9,7 +9,15 @@ import "../../styles/KeeperApp.css"
 function KeeperApp() {
 
     const [notes, setNotes] = useState([])
-    console.log(notes);
+
+    const deleteNote = (id) => {
+        setNotes(prevNotes => {
+            return prevNotes.filter((item, index) => {
+                return index !== id;
+            });
+        });
+    }
+
     const handleSubmit = (title, text) => {
         setNotes(() => {
             return [...notes, { title, text }]
@@ -22,7 +30,7 @@ function KeeperApp() {
             <div id={"container"}>
                 <CreateArea handleSubmit={handleSubmit} />
                 {notes.map((el, index) => {
-                    return <Note key={index} title={el.title} content={el.text} />
+                    return <Note key={index} id={index} title={el.title} content={el.text} deleteNote={deleteNote} />
                 })}
             </div>
             <Footer />
