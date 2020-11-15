@@ -1,5 +1,5 @@
 import "../styles/CursorEffect.css"
-import carvul from "../adidas.png"
+import shoe from "../adidas.png"
 import { useEffect } from "react";
 
 function CursorEffect() {
@@ -49,7 +49,7 @@ function CursorEffect() {
             <div className="card">
                 <div className="sneaker">
                     <div className="circle"></div>
-                    <img src={carvul} alt="adidas" />
+                    <img src={shoe} alt="adidas" />
                 </div>
                 <div className="info">
                     <h1 className="title">Adidas ZX</h1>
