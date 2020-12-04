@@ -19,8 +19,10 @@ export default function Checkout() {
             sessionId,
         });
     }
-    return (<div>
-        <h1>Checkout</h1>
-        <button role="link" onClick={handleClick} >Checkout</button>
-    </div>)
+    return (
+        <div>
+            <h1>Checkout</h1>
+            <button role="link" onClick={handleClick} >Checkout</button>
+        </div>
+    )
 }
