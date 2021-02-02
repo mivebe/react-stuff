@@ -2,27 +2,19 @@ import React from 'react'
 import "./App.css"
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import UnmountAnimation from "./Unmount Animation/UnmountAnimation"
-import Core from "./ThreeJS/Core"
-import Plane from "./rf3-plane/Plane"
-import Character from './r3f-character/Character';
+import Main from "./securionPay-test/Main"
 
 const App = () => {
     return (
         <div className='app' >
             <BrowserRouter>
                 <Switch>
-                    <Redirect path='/' exact to='/character' />
+                    <Redirect path='/' exact to='/main' />
                     <Route path='/unmount'>
                         <UnmountAnimation />
                     </Route>
-                    <Route path='/three'>
-                        <Core />
-                    </Route>
-                    <Route path='/plane'>
-                        <Plane />
-                    </Route>
-                    <Route path='/character'>
-                        <Character />
+                    <Route path='/main'>
+                        <Main />
                     </Route>
                 </Switch>
             </BrowserRouter>

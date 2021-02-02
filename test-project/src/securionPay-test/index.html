@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://securionpay.com/checkout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            SecurionpayCheckout.key = 'pk_test_T3ACVDz7R1Yq2VcMBE1Jrp8A';
+            SecurionpayCheckout.success = function (result) {
+                // handle successful payment (e.g. send payment data to your server)
+            };
+            SecurionpayCheckout.error = function (errorMessage) {
+                // handle integration errors (e.g. send error notification to your server)
+            };
+
+            $('#payment-button').click(function () {
+                SecurionpayCheckout.open({
+                    checkoutRequest: 'YWY3ZGRiYjY4Y2JhNTY4ZjZmZWI1YzRlZDEyYzljN2Q0ZWE1MzdjZmNhYzVlZDk1ZjlmMWNjMjEyZjJmNzk3NXx7ImNoYXJnZSI6eyJhbW91bnQiOjQ5OSwiY3VycmVuY3kiOiJFVVIifX0=',
+                    name: 'SecurionPay',
+                    description: 'Checkout example'
+                });
+            });
+        });
+    </script>
+
+    <form action="/your-payment-handler" method="post">
+        <script src="https://securionpay.com/checkout.js" class="securionpay-button"
+            data-key="pu_test_WVMFC9GFuvm54b0uorifKkCh"
+            data-checkout-request="Y2Y5Y2UyZDgzMzFjNTMxZjgzODlhNjE2YTE4Zjk1NzhjMTM0Yjc4NGRhYjVjYjdlNGI1OTY0ZTc3OTBmMTczY3x7ImNoYXJnZSI6eyJhbW91bnQiOjQ5OSwiY3VycmVuY3kiOiJFVVIifX0="
+            data-name="SecurionPay" data-description="Checkout example" data-checkout-button="Payment button">
+            </script>
+    </form>
+
+    <button id="payment-button">Payment button</button>
+</body>
+
+</html>
