@@ -15,7 +15,7 @@ const GetAllEntries = () => {
 
         const data = await client.getEntries()
         setEntries(data)
-        console.log("many entries data", data);
+        // console.log("many entries data", data);
     }, [])
 
     return (

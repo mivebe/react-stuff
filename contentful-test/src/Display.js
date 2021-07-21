@@ -1,44 +1,39 @@
 import { useEffect, useState, useContext } from "react";
 import { ModelContext } from "./contexts/ModelContext";
-import GetSingleEntry from "./GetSingleEntry";
-import GetAllEntries from "./GetAllEntries";
+import { EntriesContext } from "./contexts/EntriesContext";
+import Product from "./components/Product";
 
 const Display = () => {
+    const entries = useContext(EntriesContext)
+    const [isLoading, setIsLoading] = useState(true)
 
-    // const fromContext = useContext(ModelContext)
+    const items = entries ? entries.items : []
+    console.log("items ", items);
+    items && console.log(items[0].fields.description);
 
-    const data = GetAllEntries()
-    const entries = data.items
-    // console.log(entries);
-
-
-    // entries.map(e => {
-    //     const descriptionArray = e.fields.description.content.map()
-    // })
-
+    useEffect(() => {
+        if (items) {
+            setIsLoading(false)
+        }
+    }, [items])
 
     return (
         <div>
-            {entries && entries.map(e => (
-                <div className="product">
-                    <div className="title">{e.fields.title}</div>
-                    <img src={"http:" + e.fields.productImage.fields.file.url} />
-                    <div classname="price">
-                        <p className="price_value">{e.fields.price}</p>
-                        <p className="price_currency-per-batch">{e.fields.currencyPerBatch}</p>
-                        <p className="price_clarification">{e.fields.priceClarification}</p>
-                    </div>
-                    <div className="short-description">{e.fields.shortDescription}</div>
-                    <br></br>
-                    <div className="description">{e.fields.description.content.map(p =>
-                        <div>{p.content.map(ip =>
-                            <div>{ip.value}</div>)}
-                        </div>)}
-                    </div>
-                    <br></br>
-                </div>
-            ))}
-
+            {isLoading ?
+                <div>Loading</div> :
+                items && items.map(e =>
+                    <Product
+                        title={e.fields.title}
+                        image={"http:" + e.fields.productImage.fields.file.url}
+                        price={e.fields.price}
+                        currencyPerBatch={e.fields.currencyPerBatch}
+                        priceClarification={e.fields.priceClarification}
+                        shortDescription={e.fields.shortDescription}
+                        description={e.fields.description}
+                        category={e.fields.category}
+                        subcategory={e.fields.subcategory}
+                    />
+                )}
         </div>
     )
 }
