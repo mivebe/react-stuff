@@ -18,27 +18,26 @@ export const EntriesProvider = ({ children }) => {
         });
 
         const data = await client.getEntries()
+        // console.log("data ", data);
 
-        var sortArray = data.items.map(function (data, idx) {
+        const sortArray = data.items.map((data, idx) => {
             return { idx: idx, data: data }
         })
 
-        sortArray.sort(function (a, b) {
+        sortArray.sort((a, b) => {
             if (!a.data.fields.order && !b.data.fields.order) return a.idx - b.idx;
-            if (!a.data.fields.order) return -1;
-            if (!b.data.fields.order) return 1;
-            if (a.data.fields.order < b.data.fields.order) return -1;
-            if (a.data.fields.order > b.data.fields.order) return 1;
-            return a.idx - b.idx
+            if (!a.data.fields.order) return 1;
+            if (!b.data.fields.order) return -1;
+            return a.data.fields.order - b.data.fields.order
         });
 
-        var answer = sortArray.map(function (val) {
+        const answer = sortArray.map((val) => {
             return val.data
         });
-        console.log("answer ", answer);
+        // console.log("answer ", answer);
         const sortedData = { ...data, items: answer }
         setEntries(sortedData)
-        console.log("many entries data", data);
+        // console.log("many entries data", data);
     }, [])
 
     return (

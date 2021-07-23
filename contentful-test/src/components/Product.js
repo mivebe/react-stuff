@@ -1,4 +1,5 @@
 import GetSingleEntry from "../GetSingleEntry";
+import ProductCard from "./ProductCard";
 
 const Product = ({ title, image, price, currencyPerBatch, priceClarification, shortDescription, description, category, subcategory }) => {
 
@@ -8,13 +9,17 @@ const Product = ({ title, image, price, currencyPerBatch, priceClarification, sh
             return <a href="#" className="embedded-entry-inline" >{e.data.target.fields.title}</a>
         }
         if (e.nodeType === "embedded-entry-block") {
-            //generate product card component
-            return
+            //should probably redirect to the product component
+            return <ProductCard title={e.data.target.fields.title} image={"http:" + e.data.target.fields.productImage.fields.file.url} price={e.data.target.fields.price} currencyPerBatch={e.data.target.fields.currencyPerBatch} priceClarification={e.data.target.fields.priceClarification} shortDescription={e.data.target.fields.shortDescription} description={e.data.target.fields.description} category={e.data.target.fields.category} subcategory={e.data.target.fields.subcategory} />
         }
 
         if (e.nodeType === "embedded-asset-block") {
             value = "http:" + e.data.target.fields.file.url
-            return <img className="image-asset" src={value} alt="embedded-asset-block" />
+            return <img
+                width={e.data.target.fields.file.details.image.width / 10}
+                height={e.data.target.fields.file.details.image.height / 10}
+                className="image-asset" src={value} alt="embedded-asset-block"
+            />
         }
 
         if (e.content) {
@@ -30,7 +35,29 @@ const Product = ({ title, image, price, currencyPerBatch, priceClarification, sh
                 return <div>{value}</div>
                 break;
             case "text":
-                return <span>{value}</span>
+                if (!e.marks.length) {
+                    return <span>{value}</span>
+                } else {
+                    e.marks.map(m => {
+                        switch (m.type) {
+                            case "underline":
+                                value = <u>{value}</u>
+                                break;
+                            case "bold":
+                                value = <b>{value}</b>
+                                break;
+                            case "italic":
+                                value = <i>{value}</i>
+                                break;
+                            case "code":
+                                value = <code>{value}</code>
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                    return <span>{value}</span>
+                }
                 break;
             case "paragraph":
                 return <p>{value}</p>
@@ -100,6 +127,10 @@ const Product = ({ title, image, price, currencyPerBatch, priceClarification, sh
             <div className="category">{category}</div>
             <div className="subcategory">{subcategory}</div>
             <br></br>
+            <hr></hr>
+            <hr></hr>
+            <hr></hr>
+            <hr></hr>
         </div>
     )
 }
