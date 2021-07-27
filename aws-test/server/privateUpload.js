@@ -2,12 +2,12 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 var path = require("path");
 
-const BUCKET_NAME = 'mivebekofa';
+const BUCKET_NAME = 'mivebeprivatekofa';
 const IAM_USER_KEY = 'AKIA57CFAUYL3RGQKNN4';
 const IAM_USER_SECRET = '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';
 
-exports.uploadToS3 = uploadToS3
-function uploadToS3(file) {
+exports.privateUploadToS3 = privateUploadToS3
+function privateUploadToS3(file) {
 
     return new Promise((resolve, reject) => {
 
@@ -23,7 +23,6 @@ function uploadToS3(file) {
                 Bucket: BUCKET_NAME,
                 Key: file.name,
                 Body: file.data,
-                ACL: "public-read"
             };
 
             s3bucket.upload(params, function (err, data) {
@@ -41,23 +40,22 @@ function uploadToS3(file) {
     });
 }
 
-exports.downloadFromS3 = downloadFromS3
+exports.privateDownloadFromS3 = privateDownloadFromS3
 
-async function downloadFromS3(filename) {
+async function privateDownloadFromS3(filename) {
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY,
         secretAccessKey: IAM_USER_SECRET,
         Bucket: BUCKET_NAME,
         region: "eu-central-1",
-        httpOptions: {
-            timeout: 900000,
-        },
     });
 
-    var params = {
-        Bucket: BUCKET_NAME,
-        Key: filename || file.name
-    };
+    //
+
+    // var params = {
+    //     Bucket: BUCKET_NAME,
+    //     Key: filename || file.name
+    // };
 
     // var readStream = await s3bucket.getObject(params).promise().then((data) => {
     //     console.log(data);
@@ -72,8 +70,8 @@ async function downloadFromS3(filename) {
 
     const url = s3bucket.getSignedUrl('getObject', {
         Bucket: BUCKET_NAME,
-        Key: filename,
-        Expires: 30          // seconds
+        Key: filename || "f76.jpg",
+        Expires: 10          // seconds
     });
 
     return url;
