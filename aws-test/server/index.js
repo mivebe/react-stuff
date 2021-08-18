@@ -8,10 +8,6 @@ const bodyParser = require('body-parser');
 const config = require('./config.js');
 const storageProvider = require('./storage-providers/index.js')(config);
 
-const { uploadToS3, downloadFromS3 } = require('./uploadFile')
-const { privateUploadToS3, privateDownloadFromS3 } = require("./privateUpload")
-
-
 const PROTOCOL = "http://"
 const HOST = "localhost"
 const PORT = 3001
@@ -90,6 +86,14 @@ app.get("/api/download", async function (req, res, next) {
 app.get("/api/private-download", async function (req, res, next) {
     let target = req.query.target
     let result1 = await storageProvider.getFileUrl(target || "f76.jpg");
+    res.send(result1);
+
+});
+
+app.delete("/api/delete", function (req, res, next) {
+    let target = req.query.target
+    console.log("asd");
+    let result1 = storageProvider.deleteFile(target || "f76.jpg", true);
     res.send(result1);
 
 });
