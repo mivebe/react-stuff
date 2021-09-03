@@ -61,33 +61,25 @@ module.exports = function (config) {
         return url;
     }
 
-    function deleteFile(asset, isPublic) {
+    async function deleteFile(asset, isPublic) {
         const bucketName = isPublic ? config.BUCKET_NAME : config.PRIVATE_BUCKET_NAME;
         let s3bucket = new AWS.S3({
             accessKeyId: config.IAM_USER_KEY,
-            secretAccessKey: config.IAM_USER_SECRET,
-            Bucket: bucketName,
-            region: "eu-central-1",
-            httpOptions: {
-                timeout: 900000,
-            },
+            secretAccessKey: config.IAM_USER_SECRET
         });
 
-        return new Promise((resolve, reject) => {
-            var params = {
-                Bucket: isPublic ? config.BUCKET_NAME : config.PRIVATE_BUCKET_NAME,
-                Key: asset,
-            };
+        var params = {
+            Bucket: isPublic ? config.BUCKET_NAME : config.PRIVATE_BUCKET_NAME,
+            Key: asset,
+        };
 
-            s3bucket.deleteObject(params, function (err, data) {
-                if (err) {
-                    reject(err);
-                    console.log('error in callback', err);
-                    return;
-                }
-                resolve(data);
-                console.log('success deleted', data);
-            });
+        return await s3bucket.deleteObject(params, function (err, data) {
+            if (err) {
+                console.log('error in callback', err);
+                return;
+            }
+
+            console.log('success deleted', data);
         });
     }
 
