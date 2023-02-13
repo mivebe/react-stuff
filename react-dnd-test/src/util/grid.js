@@ -9,8 +9,8 @@ export function snapToGrid(x, y) {
 }
 
 function showGrid(w, h){
-  const snappedX = Math.round(x / unitSize) * unitSize
-  const snappedY = Math.round(y / unitSize) * unitSize
+  const snappedX = Math.round(w / unitSize) * unitSize
+  const snappedY = Math.round(h / unitSize) * unitSize
   
   return [snappedX, snappedY]
 }
